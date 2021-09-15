@@ -1,6 +1,10 @@
 # Custom
 screenshots/
 
+#Svelte 
+.DS_Store
+/public/build/
+
 # Logs
 logs
 *.log
