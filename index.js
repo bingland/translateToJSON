@@ -8,6 +8,7 @@ const port = process.env.PORT || 3535
 // middlware 
 app.use(cors())
 app.use(express.urlencoded({extended: false}))
+app.use("/", express.static(__dirname + '/public'));
 
 app.get('/server', async (req, res) => {
   console.log('/server')
