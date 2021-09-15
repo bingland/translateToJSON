@@ -1,18 +1,26 @@
 const express = require('express')
 const cors = require('cors')
-const translate = require('./translate.js')
+const t = require('./translate.js')
 
 const app = express()
 const port = process.env.PORT || 3535
 
 // middlware 
 app.use(cors())
-app.use(express.urlencoded({extended: false}))
+app.use(express.json())
 app.use("/", express.static(__dirname + '/public'));
 
-app.get('/server', async (req, res) => {
+app.post('/server', async (req, res) => {
+  console.log(req.body)
+  // check if json is valid
+  try { 
+    JSON.parse(JSON.stringify(req.body))
+  } catch (e) {
+    console.log(e)
+    return 
+  }
   console.log('/server')
-  res.send(await translate.translateAll())
+  res.send(await t.translateAll(JSON.stringify(req.body)))
 })
 
 app.listen(port, () => {

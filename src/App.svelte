@@ -1,17 +1,32 @@
 <script>
 	let showResults = false
+	let errorMessage = ''
 	let isLoading = false
 	let response = []
+	let userJSON = ''
 
 	const sendRequest = () => {
+		// verify if JSON is valid
+		try { 
+			JSON.parse(userJSON)
+		} catch (e) {
+			console.log(e)
+			errorMessage = String(e)
+			return 
+		}
+		errorMessage = ''
 		isLoading = true
-		fetch('./server')
-			.then(response => response.json())
-			.then(data => {
-				isLoading = false
-				console.log(data)
-				response = data
-			});
+		
+		fetch('./server', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: userJSON
+		})
+		.then(response => response.json())
+		.then(data => {
+			isLoading = false
+			response = data
+		});
 	}
 	const formatJsonOutput = (text) => {
 		return Object.entries(text).map(([key, value]) => `"${key}": "${value}",`)
@@ -23,7 +38,10 @@
 	<div class="siteGrid">
 		<form>
 			<label for="jsonInput">Input English JSON here:</label>
-			<textarea name="jsonInput" placeholder="Insert JSON here"></textarea>
+			<textarea bind:value={userJSON} name="jsonInput" placeholder="Insert JSON here"></textarea>
+			{#if errorMessage !== ''}
+				<div class="errorMessage">{errorMessage}</div>
+			{/if}
 			<button type="submit" on:click|preventDefault={sendRequest}>Translate & Convert</button>
 		</form>
 		<div>
@@ -64,6 +82,14 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		grid-gap: 10px;
+	}
+	.errorMessage {
+		background-color: rgb(255, 56, 56);
+		color: rgb(153, 0, 0);
+		border-radius: 5px;
+		border: 1px solid rgb(153, 0, 0);
+		padding: 8px;
+		margin-bottom: 5px;
 	}
 	.loadingMessage {
 		padding: 8px 0;
