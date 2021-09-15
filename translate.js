@@ -5,6 +5,7 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 const translateAll = async () => {
   const browser = await puppeteer.launch({headless: true, dumpio: true, args: ['--no-sandbox', '--disable-setuid-sandbox']});
   const langCodes = ['es', 'pt', 'fr', 'pl', 'de', 'da', 'sv', 'et']
+  const langNames = ['Spanish', 'Portuguese', 'French', 'Polish', 'German', 'Danish', 'Swedish', 'Estonian']
   let jsonString = `{
     "firstThing": "Hello world!",
     "secondThing": "I am translating!"
@@ -23,7 +24,7 @@ const translateAll = async () => {
     })
     let currentOutput = {}
     Object.keys(JSON.parse(jsonString)).forEach((key, i) => { currentOutput[key] = data[i] })
-    response.push({lang: langCodes[i], translations: currentOutput})
+    response.push({langCode: langCodes[i], langName: langNames[i], translations: currentOutput})
     // console.log(currentOutput)
     await delay(1500)
   }
