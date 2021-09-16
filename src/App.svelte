@@ -4,15 +4,16 @@
 	let response = []
 	let userJSON = ''
 	let customSelector = ''
+	let serverErrorMessage = ''
 
 	const sendRequest = () => {
 		try { // verify if JSON is valid
 			JSON.parse(userJSON)
 		} catch (e) {
-			console.log(e)
 			errorMessage = String(e)
 			return 
 		}
+		serverErrorMessage = ''
 		errorMessage = ''
 		isLoading = true
 		
@@ -28,7 +29,12 @@
 		.then(data => {
 			isLoading = false
 			response = data
-		});
+		})
+		.catch((e) => {
+			isLoading = false
+			response = []
+			serverErrorMessage = String(e)
+		})
 	}
 	const copyText = (e) => {
 		let selectionText = e.target.parentElement.parentElement.lastElementChild.innerText
@@ -61,6 +67,9 @@
 		<div>
 			{#if isLoading}
 				<div class="loadingMessage">Now loading... May take up to 15 seconds to finish.</div>
+			{/if}
+			{#if serverErrorMessage !== ''}
+				<div class="serverErrorMessage">Server error. Chances are, the selector name didn't find any elements. Try a new selector name and see what happens 🐸</div>
 			{/if}
 			{#if response.length > 0 && !isLoading}
 				{#each response as {langCode, langName, translations}, i }
@@ -110,6 +119,7 @@
 	button {
 		border-radius: 5px;
 		border: 1px solid rgb(168, 168, 168);
+		margin: 5px 0;
 	}
 	.siteGrid {
 		display: grid;
@@ -124,13 +134,18 @@
 
 		border: 1px solid rgb(168, 168, 168);
 	}
-	.errorMessage {
+	.errorMessage, .serverErrorMessage {
 		background-color: rgb(255, 56, 56);
 		color: rgb(153, 0, 0);
 		border-radius: 5px;
 		border: 1px solid rgb(153, 0, 0);
 		padding: 8px;
 		margin-bottom: 5px;
+	}
+	.serverErrorMessage {
+		margin: 5px auto;
+		text-align: center;
+		max-width: 465px;
 	}
 	.loadingMessage {
 		padding: 8px 0;
