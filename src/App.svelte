@@ -3,10 +3,10 @@
 	let isLoading = false
 	let response = []
 	let userJSON = ''
+	let customSelector = ''
 
 	const sendRequest = () => {
-		// verify if JSON is valid
-		try { 
+		try { // verify if JSON is valid
 			JSON.parse(userJSON)
 		} catch (e) {
 			console.log(e)
@@ -19,7 +19,10 @@
 		fetch('./server', {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
-			body: userJSON
+			body: JSON.stringify({
+				userJSON: JSON.parse(userJSON), 
+				customSelector
+			})
 		})
 		.then(response => response.json())
 		.then(data => {
@@ -47,6 +50,8 @@
 			<div class="jsonInputArea">
 				<label for="jsonInput">Input English JSON here:</label>
 				<textarea bind:value={userJSON} name="jsonInput" placeholder="Insert JSON here"></textarea>
+				<label for="customSelector">Custom selector name</label>
+				<input bind:value={customSelector} class="customSelector" name="customSelector" placeholder="Default is .VIiyi" />
 			</div>
 			{#if errorMessage !== ''}
 				<div class="errorMessage">{errorMessage}</div>
@@ -55,7 +60,7 @@
 		</form>
 		<div>
 			{#if isLoading}
-				<div class="loadingMessage">Now loading... May take up to 15 seconds to finish</div>
+				<div class="loadingMessage">Now loading... May take up to 15 seconds to finish.</div>
 			{/if}
 			{#if response.length > 0 && !isLoading}
 				{#each response as {langCode, langName, translations}, i }
@@ -92,10 +97,14 @@
 		width: 100%;
 		height: 300px;
 		border-radius: 5px;
-		margin-bottom: 0; 
+		margin-bottom: 5px; 
 		resize: vertical;
 	}
-	textarea:focus {
+	input {
+		border-radius: 5px;
+		width: 100%;
+	}
+	textarea:focus, input:focus {
 		outline: none;
 	}
 	button {
@@ -104,7 +113,7 @@
 	}
 	.siteGrid {
 		display: grid;
-		grid-template-columns: 500px 1fr;
+		grid-template-columns: 450px 1fr;
 		grid-gap: 10px;
 	}
 	.jsonInputArea {

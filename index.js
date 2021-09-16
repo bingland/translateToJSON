@@ -1,3 +1,5 @@
+"use strict"
+
 const express = require('express')
 const cors = require('cors')
 const t = require('./translate.js')
@@ -12,15 +14,21 @@ app.use("/", express.static(__dirname + '/public'));
 
 app.post('/server', async (req, res) => {
   console.log(req.body)
-  // check if json is valid
-  try { 
-    JSON.parse(JSON.stringify(req.body))
+  let { userJSON, customSelector } = req.body
+  try { // check if json is valid
+    JSON.parse(JSON.stringify(userJSON))
   } catch (e) {
     console.log(e)
-    return 
+    res.send('Error')
   }
-  console.log('/server')
-  res.send(await t.translateAll(JSON.stringify(req.body)))
+  console.log('POST /server')
+  try { res.send(await t.translateAll(
+    JSON.stringify(userJSON), 
+    customSelector.replace(/\s/g, '').length !== 0 ? customSelector : '.VIiyi')
+  )} catch (e) {
+    console.log(e)
+    res.send('Error')
+  }
 })
 
 app.listen(port, () => {
