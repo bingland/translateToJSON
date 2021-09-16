@@ -24,6 +24,7 @@
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear"
   },
+  "postinstall": "npm run build",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bingland/translateToJSON.git"
