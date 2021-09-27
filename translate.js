@@ -4,8 +4,8 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const translateAll = async (jsonString, selector) => {
   const browser = await puppeteer.launch({headless: true, dumpio: true, args: ['--no-sandbox', '--disable-setuid-sandbox']});
-  const langCodes = ['es', 'pt', 'fr', 'pl', 'de', 'da', 'sv', 'et']
-  const langNames = ['Spanish', 'Portuguese', 'French', 'Polish', 'German', 'Danish', 'Swedish', 'Estonian']
+  const langCodes = ['es', 'pt', 'fr', 'pl', 'de', 'da', 'sv', 'no', 'et']
+  const langNames = ['Spanish', 'Portuguese', 'French', 'Polish', 'German', 'Danish', 'Swedish', 'Norwegian', 'Estonian']
   let requestText = Object.values(JSON.parse(jsonString)).join('%0A').replace(/ /g,'%20')
   const page = await browser.newPage();
   console.log('Selector: ' + selector)
