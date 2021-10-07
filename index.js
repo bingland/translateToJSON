@@ -20,22 +20,33 @@ function haltOnTimedout(req, res, next){
   if (!req.timedout) next()
 }
 
+const langCodes = ['es', 'pt', 'fr', 'pl', 'de', 'da', 'sv', 'no', 'et']
+const langNames = ['Spanish', 'Portuguese', 'French', 'Polish', 'German', 'Danish', 'Swedish', 'Norwegian', 'Estonian']
+
+app.get('/languages', async (req, res) => {
+  console.log('/languages')
+  res.json(langCodes.map((code, i) => ({code: code, name: langNames[i]})))
+})
+
 app.post('/server', async (req, res) => {
+  console.log('POST /server')
   console.log(req.body)
-  let { userJSON, customSelector } = req.body
+  let { userJSON, customSelector, selectedLangs } = req.body
   try { // check if json is valid
+    JSON.parse(JSON.stringify(req.body))
     JSON.parse(JSON.stringify(userJSON))
   } catch (e) {
     console.log(e)
-    res.send('Error')
+    res.status(500).send({error: true, message: String(e)})
   }
-  console.log('POST /server')
-  try { res.send(await t.translateAll(
+  try {
+    res.status(200).send(await t.translateAll(
     JSON.stringify(userJSON), 
-    customSelector.replace(/\s/g, '').length !== 0 ? customSelector : '.VIiyi')
-  )} catch (e) {
+    customSelector.replace(/\s/g, '').length !== 0 ? customSelector : '.VIiyi',
+    selectedLangs
+  ))} catch (e) {
     console.log(e)
-    res.send('Error')
+    res.status(500).send({error: true, errorMessage: String(e)})
   }
 })
 
