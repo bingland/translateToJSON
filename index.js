@@ -20,8 +20,8 @@ function haltOnTimedout(req, res, next){
   if (!req.timedout) next()
 }
 
-const langCodes = ['es', 'pt', 'fr', 'pl', 'de', 'da', 'sv', 'no', 'et']
-const langNames = ['Spanish', 'Portuguese', 'French', 'Polish', 'German', 'Danish', 'Swedish', 'Norwegian', 'Estonian']
+const langCodes = ['es', 'pt', 'fr', 'pl', 'de', 'nl', 'da', 'sv', 'no', 'et']
+const langNames = ['Spanish', 'Portuguese', 'French', 'Polish', 'German', 'Dutch', 'Danish', 'Swedish', 'Norwegian', 'Estonian']
 
 app.get('/languages', async (req, res) => {
   console.log('/languages')

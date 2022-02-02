@@ -10,12 +10,13 @@ const translateAll = async (jsonString, selector, selectedLangs) => {
     {name: 'French', code: 'fr'},
     {name: 'Polish', code: 'pl'},
     {name: 'German', code: 'de'},
+    {name: 'Dutch', code: 'nl'},
     {name: 'Danish', code: 'da'},
     {name: 'Swedish', code: 'sv'},
     {name: 'Norwegian', code: 'no'},
     {name: 'Estonian', code: 'et'},
   ]
-  let requestText = Object.values(JSON.parse(jsonString)).join('%0A').replace(/ /g,'%20')
+  let requestText = (Object.values(JSON.parse(jsonString)).map(item => encodeURIComponent(item)).join('%0A').replace(/ /g,'%20'))
   const page = await browser.newPage()
   let response = []
   for (let i in selectedLangs) {
