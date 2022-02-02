@@ -228,6 +228,11 @@
 		border-radius: 5px;
 		background-color: rgb(226, 226, 226);
 		border: 1px solid rgb(168, 168, 168);
+		transition: 0.2s all ease-in-out;
+	}
+	.translatedItem:hover {
+		background-color: rgb(218, 218, 218); 
+		border: 1px solid rgb(146, 146, 146);
 	}
 	.translatedItemTitle {
 		display: flex;
