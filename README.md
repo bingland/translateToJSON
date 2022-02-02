@@ -25,6 +25,12 @@ node index.js
 
 This does need to be worked on a bit more you can can the Express server and Svelte in live refresh mode if you run to processes in two different windows.
 
+Install the dependencies:
+
+```bash
+npm install
+```
+
 First terminal for running Svelte:
 
 ```bash
