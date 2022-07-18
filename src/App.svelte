@@ -259,8 +259,9 @@
 	}
 	.langCode {
 		background-color: orange;
-		width: 20px;
+		min-width: 20px;
 		height: 20px;
+		padding: 0 3px;
 		font-weight: bold;
 		font-size: 12px;
 		text-transform: uppercase;
