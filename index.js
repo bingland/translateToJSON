@@ -20,12 +20,30 @@ function haltOnTimedout(req, res, next){
   if (!req.timedout) next()
 }
 
-const langCodes = ['es', 'pt', 'fr', 'pl', 'de', 'nl', 'da', 'sv', 'no', 'et']
-const langNames = ['Spanish', 'Portuguese', 'French', 'Polish', 'German', 'Dutch', 'Danish', 'Swedish', 'Norwegian', 'Estonian']
+const langData = [
+  {name: 'Spanish', code: 'es'}, 
+  {name: 'Portuguese', code: 'pt'},
+  {name: 'French', code: 'fr'},
+  {name: 'Polish', code: 'pl'},
+  {name: 'German', code: 'de'},
+  {name: 'Dutch', code: 'nl'},
+  {name: 'Danish', code: 'da'},
+  {name: 'Swedish', code: 'sv'},
+  {name: 'Norwegian', code: 'no'},
+  {name: 'Estonian', code: 'et'},
+  {name: 'Arabic', code: 'ar', loto: true},
+  {name: 'Hebrew', code: 'iw', loto: true},
+  {name: 'Italian', code: 'it', loto: true},
+  {name: 'Korean', code: 'ko', loto: true},
+  {name: 'Chinese', code: 'zh-CN', loto: true},
+]
+
+const langCodes = langData.map(lang => lang.code)
+const langNames = langData.map(lang => lang.name)
 
 app.get('/languages', async (req, res) => {
   console.log('/languages')
-  res.json(langCodes.map((code, i) => ({code: code, name: langNames[i]})))
+  res.json(langCodes.map((code, i) => ({code: code, name: langNames[i], loto: langData[i].loto})))
 })
 
 app.post('/server', async (req, res) => {

@@ -15,6 +15,11 @@ const translateAll = async (jsonString, selector, selectedLangs) => {
     {name: 'Swedish', code: 'sv'},
     {name: 'Norwegian', code: 'no'},
     {name: 'Estonian', code: 'et'},
+    {name: 'Arabic', code: 'ar', loto: true},
+    {name: 'Hebrew', code: 'iw', loto: true},
+    {name: 'Italian', code: 'it', loto: true},
+    {name: 'Korean', code: 'ko', loto: true},
+    {name: 'Chinese', code: 'zh-CN', loto: true},
   ]
   let requestText = (Object.values(JSON.parse(jsonString)).map(item => encodeURIComponent(item)).join('%0A').replace(/ /g,'%20'))
   const page = await browser.newPage()
@@ -28,7 +33,13 @@ const translateAll = async (jsonString, selector, selectedLangs) => {
     }, selector)
     let currentOutput = {}
     Object.keys(JSON.parse(jsonString)).forEach((key, i) => { currentOutput[key] = data[i] })
-    response.push({langCode: selectedLangs[i], langName: langNames[langNames.findIndex(el => el.code === selectedLangs[i])].name, translations: currentOutput})
+    let currentLangObj = langNames[langNames.findIndex(el => el.code === selectedLangs[i])]
+    response.push({
+      langCode: selectedLangs[i], 
+      langName: currentLangObj.name, 
+      loto: currentLangObj.loto,
+      translations: currentOutput
+    })
     await delay(1200)
   }
   await browser.close()
