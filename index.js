@@ -60,7 +60,7 @@ app.post('/server', async (req, res) => {
   try {
     res.status(200).send(await t.translateAll(
     JSON.stringify(userJSON), 
-    customSelector.replace(/\s/g, '').length !== 0 ? customSelector : '.VIiyi',
+    customSelector.replace(/\s/g, '').length !== 0 ? customSelector : '.lRu31',
     selectedLangs
   ))} catch (e) {
     console.log(e)

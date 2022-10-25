@@ -78,7 +78,7 @@
 				<label for="jsonInput">Input English JSON here:</label>
 				<textarea bind:value={userJSON} name="jsonInput" placeholder="Insert JSON here"></textarea>
 				<label for="customSelector">Custom selector name</label>
-				<input bind:value={customSelector} class="customSelector" name="customSelector" placeholder="Default is .VIiyi" />
+				<input bind:value={customSelector} class="customSelector" name="customSelector" placeholder="Default is .lRu31" />
 				
 				<div class="labelTitle">Select languages:</div>
 				<div class="langSelectArea">
