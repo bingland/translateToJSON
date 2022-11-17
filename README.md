@@ -21,6 +21,8 @@ Run the Express server:
 node index.js
 ```
 
+Then, open up the node server by going to localhost:3535.
+
 ## Running the app while developing
 
 This does need to be worked on a bit more you can can the Express server and Svelte in live refresh mode if you run to processes in two different windows.
@@ -42,3 +44,5 @@ Seconds terminal for running Express:
 ```bash
 node index.js
 ```
+
+Then, open up the node server by going to localhost:3535.
