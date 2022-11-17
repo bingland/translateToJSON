@@ -27,6 +27,16 @@ const translateAll = async (jsonString, selector, selectedLangs) => {
   for (let i in selectedLangs) {
     console.log('[Server] Currently reading: ' + selectedLangs[i])
     await page.goto(`https://translate.google.com/?sl=en&tl=${selectedLangs[i]}&text=${requestText}&op=translate`, {waitUntil: 'networkidle2'});
+    
+    // check to see if there is a cookie page
+    await delay(1500); // delay needed to wait for element
+    await page.evaluate(() => {
+      const selectorString = 'button[aria-label="Reject all"]'
+      let el = document.querySelector(selectorString)
+      if (el) el.click()
+      return el
+    })
+    
     await page.waitForSelector(selector)
     let data = await page.evaluate((selector) => {
       return document.querySelector(selector).innerText.split('\n')
