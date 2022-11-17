@@ -101,7 +101,9 @@
 					</div>
 				{/if}
 				{#if availableLanguages.length > 0}
-					<div class="estimatedTime">Estimated loading time: {selectedLanguages.filter(lang => lang.checked).length * 3} seconds</div>
+					<div class="estimatedTime">
+						Estimated loading time: {(selectedLanguages.filter(lang => lang.checked).length * 5) + 12} seconds
+					</div>
 				{/if}
 			</div>
 			
