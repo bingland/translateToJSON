@@ -13,8 +13,8 @@ app.use(cors())
 app.use(express.json())
 app.use("/", express.static(__dirname + '/public'));
 
-app.use(timeout(60000))
-app.use(haltOnTimedout)
+// app.use(timeout(60000))
+// app.use(haltOnTimedout)
 
 function haltOnTimedout(req, res, next){
   if (!req.timedout) next()
