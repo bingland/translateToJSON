@@ -58,11 +58,13 @@ app.post('/server', async (req, res) => {
     res.status(500).send({error: true, message: String(e)})
   }
   try {
-    res.status(200).send(await t.translateAll(
-    JSON.stringify(userJSON), 
-    customSelector.replace(/\s/g, '').length !== 0 ? customSelector : '.lRu31',
-    selectedLangs
-  ))} catch (e) {
+    const translateAllReturn = await t.translateAll(
+      JSON.stringify(userJSON), 
+      customSelector.replace(/\s/g, '').length !== 0 ? customSelector : '.lRu31',
+      selectedLangs
+    )
+    res.status(200).send(translateAllReturn)
+  } catch (e) {
     console.log(e)
     res.status(500).send({error: true, errorMessage: String(e)})
   }
