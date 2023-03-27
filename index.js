@@ -31,7 +31,7 @@ const langData = [
   {name: 'Swedish', code: 'sv'},
   {name: 'Norwegian', code: 'no'},
   {name: 'Estonian', code: 'et'},
-  {name: 'Italian', code: 'et'},
+  {name: 'Italian', code: 'it'},
   {name: 'Lithuanian', code: 'lt'},
   {name: 'Arabic', code: 'ar', loto: true},
   {name: 'Hebrew', code: 'iw', loto: true},
