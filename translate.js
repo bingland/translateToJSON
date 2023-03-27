@@ -15,6 +15,8 @@ const translateAll = async (jsonString, selector, selectedLangs) => {
     {name: 'Swedish', code: 'sv'},
     {name: 'Norwegian', code: 'no'},
     {name: 'Estonian', code: 'et'},
+    {name: 'Italian', code: 'et'},
+    {name: 'Lithuanian', code: 'lt'},
     {name: 'Arabic', code: 'ar', loto: true},
     {name: 'Hebrew', code: 'iw', loto: true},
     {name: 'Italian', code: 'it', loto: true},
